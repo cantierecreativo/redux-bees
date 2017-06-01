@@ -1,4 +1,4 @@
-// options
+// placeholders
 // placeholders, options
 
 export const get = function get(placeholders = {}, options = {}) {
@@ -48,13 +48,30 @@ export const patch = function patch(...args) {
   };
 };
 
-// options
+// placeholders, body, options
+// body, options
+// body
+
+export const put = function patch(...args) {
+  const placeholders = args.length >= 3 ? args[0] : {};
+  const body = args.length >= 3 ? args[1] : args[0];
+  const options = args.length >= 2 ? args[args.length - 1] : {};
+
+  return {
+    placeholders,
+    options: {
+      method: 'PUT',
+      mode: 'cors',
+      body: JSON.stringify(body),
+      ...options,
+    }
+  };
+};
+
+// placeholders
 // placeholders, options
 
-export const destroy = function destroy(...args) {
-  const placeholders = args.length >= 2 ? args[0] : {};
-  const options = args.length >= 2 ? args[1] : args[0];
-
+export const destroy = function destroy(placeholders = {}, options = {}) {
   return {
     placeholders,
     options: {

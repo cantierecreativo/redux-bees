@@ -2,6 +2,7 @@ import {
   get,
   post,
   patch,
+  put,
   destroy,
 } from './src/httpMethods';
 
@@ -27,6 +28,7 @@ export {
   get,
   post,
   patch,
+  put,
   destroy,
 
   getEntity,
