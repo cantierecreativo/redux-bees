@@ -2,34 +2,37 @@ import React from 'react';
 import api from '../api';
 import { query } from '../../index';
 
-@query('sites', api.getSites)
+@query('sites', api.getSites, (call) => call({ foo: 'bar' }))
+
+// It automatically handles "dependent data loading": Here, firstSite depends 
+// on the first query, sites. We don't get that until the first request has
+// loaded.
+
+@query('firstSite', api.getSite, (call, props) => (
+  call({ id: props.sites && props.sites.id })
+))
 
 export default class App extends React.Component {
-  componentDidMount() {
-    const { sites } = this.props;
-    sites.fetch();
-  }
-
   render() {
-    const { sites } = this.props;
+    const { sites, status } = this.props;
 
     return (
       <div>
         {
-          !sites.hasStarted &&
+          !status.sites.hasStarted &&
             'Request not started...'
         }
         {
-          sites.isLoading &&
+          status.sites.isLoading &&
             'Loading...'
         }
         {
-          sites.hasFailed &&
-            JSON.stringify(sites.error)
+          status.sites.hasFailed &&
+            JSON.stringify(status.sites.error)
         }
         {
-          sites.result &&
-            JSON.stringify(sites.result)
+          sites &&
+            JSON.stringify(sites)
         }
       </div>
     );

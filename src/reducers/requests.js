@@ -3,7 +3,7 @@ import immutable from 'object-path-immutable';
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
-  if (action.type === 'requests/clear') {
+  if (action.type === 'requests/invalidate') {
     return immutable.del(
       state,
       action.payload.name,

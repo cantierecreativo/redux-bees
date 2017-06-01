@@ -1,6 +1,6 @@
-export function clearRequests(apiCall) {
+export function invalidateRequests(apiCall) {
   return {
-    type: 'requests/clear',
+    type: 'requests/invalidate',
     payload: { name: apiCall.actionName }
   };
 }

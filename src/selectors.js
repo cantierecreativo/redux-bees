@@ -40,7 +40,7 @@ export function getRequestResult(state, apiCall, args) {
 
 export function isRequestLoading(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
-  return request && request.isLoading;
+  return request && request.isLoading ? true : false;
 }
 
 export function hasRequestStarted(state, apiCall, args) {

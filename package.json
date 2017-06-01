@@ -23,7 +23,9 @@
   "dependencies": {
     "node-fetch": "^1.7.0",
     "object-path-immutable": "^0.5.1",
+    "object.omit": "^2.0.1",
     "prop-types": "^15.5.10",
+    "query-string": "^4.3.4",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0"
   }

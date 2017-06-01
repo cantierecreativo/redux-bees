@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getRequestInfo } from './selectors';
+import omit from 'object.omit';
 
 const defaultDispatcher = call => call();
 
@@ -18,15 +19,33 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
         this.fetch = this.fetch.bind(this);
       }
 
+      componentDidMount() {
+        this.fetch();
+      }
+
+      componentWillReceiveProps(nextProps) {
+        if (!nextProps.request.isLoading && !nextProps.request.hasStarted) {
+          this.fetch();
+        }
+      }
+
       fetch() {
         const { dispatch } = this.props;
+
         return dispatch(dispatcher(apiCall, this.props));
       }
 
       render() {
         const props = {
-          ...this.props,
-          [propName]: { ...this.props[propName], fetch: this.fetch },
+          ...omit(this.props, ['request']),
+          [propName]: this.props.request.result,
+          status: {
+            ...this.props.status,
+            [propName]: {
+              ...omit(this.props.request, ['result']),
+              fetch: this.fetch,
+            },
+          },
         };
 
         return <InnerComponent {...props} />;
@@ -39,7 +58,7 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
       const argumentsAbsorber = (...args) => args;
 
       return {
-        [propName]: getRequestInfo(
+        request: getRequestInfo(
           state,
           apiCall,
           dispatcher(argumentsAbsorber, props),

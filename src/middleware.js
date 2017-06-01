@@ -1,4 +1,8 @@
 const middleware = () => next => (promise) => {
+  if (promise.type === '@BEESNOOP') {
+    return;
+  }
+
   if (!promise.then) {
     return next(promise);
   }

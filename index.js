@@ -15,7 +15,7 @@ import {
 } from './src/selectors';
 
 import {
-  clearRequests,
+  invalidateRequests,
 } from './src/actions';
 
 export { default as buildApi } from './src/buildApi';
