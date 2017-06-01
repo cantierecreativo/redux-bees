@@ -1,0 +1,4 @@
+```
+yarn install
+yarn start
+```
