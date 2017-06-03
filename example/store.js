@@ -11,6 +11,6 @@ const reducer = combineReducers({
 
 export default createStore(
   reducer,
-  applyMiddleware(beesMiddleware)
+  applyMiddleware(beesMiddleware())
 );
 

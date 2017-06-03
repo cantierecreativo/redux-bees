@@ -1,24 +1,28 @@
-const middleware = () => next => (promise) => {
-  if (promise.type === '@BEESNOOP') {
-    return;
-  }
+const defaultProcessor = (result) => result;
 
-  if (!promise.then) {
-    return next(promise);
-  }
+export default function buildMiddleware(promiseProcessor = defaultProcessor) {
+  return () => next => (promise) => {
+    if (promise.type === '@BEESNOOP') {
+      return;
+    }
 
-  const meta = {
-    api: true,
-    name: promise.actionName,
-    params: promise.params,
-  };
+    if (!promise.then) {
+      return next(promise);
+    }
 
-  next({
-    type: `api/${promise.actionName}/request`,
-    meta: { ...meta, type: 'request' },
-  });
+    const meta = {
+      api: true,
+      name: promise.actionName,
+      params: promise.params,
+    };
 
-  return promise
+    next({
+      type: `api/${promise.actionName}/request`,
+      meta: { ...meta, type: 'request' },
+    });
+
+    return promise
+    .then(promiseProcessor)
     .then((result) => {
       next({
         type: `api/${promise.actionName}/response`,
@@ -35,6 +39,5 @@ const middleware = () => next => (promise) => {
       });
       return Promise.reject(result);
     });
-};
-
-export default middleware;
+  };
+}
