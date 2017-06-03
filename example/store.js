@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import {
   reducer as beesReducer,
   middleware as beesMiddleware,
-} from '../index';
+} from 'redux-bees';
 
 const reducer = combineReducers({
   bees: beesReducer,

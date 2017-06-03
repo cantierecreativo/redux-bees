@@ -11,9 +11,9 @@ export default function buildApi(endpoints, config = {}) {
   } = config;
 
   return Object.keys(endpoints).reduce((acc, key) => {
-    const { path, method: normalizeArguments } = endpoints[key];
+    const { path, required, method: normalizeArguments } = endpoints[key];
 
-    const requiredPlaceholders = [];
+    const requiredPlaceholders = required || [];
     const placeholderRegexp = /:([^\/$]+)/g;
     let match;
 

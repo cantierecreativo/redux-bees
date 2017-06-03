@@ -7,7 +7,10 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname, 'app'), 'node_modules'],
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'redux-bees': path.resolve(__dirname, 'src'),
+    },
   },
   output: {
     filename: 'bundle.js',

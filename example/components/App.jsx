@@ -1,38 +1,38 @@
 import React from 'react';
 import api from '../api';
-import { query } from '../../index';
+import { query } from 'redux-bees';
 
-@query('sites', api.getSites, (call) => call({ foo: 'bar' }))
+@query('site', api.getSite, (call) => call({ include: 'item_types' }))
 
-// It automatically handles "dependent data loading": Here, firstSite depends 
-// on the first query, sites. We don't get that until the first request has
+// It automatically handles "dependent data loading": Here, items depends
+// on the first query, site. We don't get that until the first request has
 // loaded.
 
-@query('firstSite', api.getSite, (call, props) => (
-  call({ id: props.sites && props.sites.id })
-))
+@query('items', api.getModelRecords, function(call, props) {
+  return call({ 'filter[type]': props.site && props.site.relationships.item_types.data[0].id });
+})
 
 export default class App extends React.Component {
   render() {
-    const { sites, status } = this.props;
+    const { items, status } = this.props;
 
     return (
       <div>
         {
-          !status.sites.hasStarted &&
+          !status.items.hasStarted &&
             'Request not started...'
         }
         {
-          status.sites.isLoading &&
+          status.items.isLoading &&
             'Loading...'
         }
         {
-          status.sites.hasFailed &&
-            JSON.stringify(status.sites.error)
+          status.items.hasFailed &&
+            JSON.stringify(status.site.error)
         }
         {
-          sites &&
-            JSON.stringify(sites)
+          items &&
+            JSON.stringify(items)
         }
       </div>
     );

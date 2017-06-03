@@ -10,7 +10,10 @@ export default function applyUrlWithPlaceholders(url, placeholders) {
       return acc.replace(token, placeholders[key])
     }
 
-    query[key] = placeholders[key];
+    if (placeholders[key]) {
+      query[key] = placeholders[key];
+    }
+
     return acc;
   }, url);
 

@@ -4,7 +4,7 @@ import {
   patch,
   put,
   destroy,
-} from './src/httpMethods';
+} from './httpMethods';
 
 import {
   getEntity,
@@ -13,16 +13,16 @@ import {
   hasRequestStarted,
   getRequestError,
   getRequestInfo,
-} from './src/selectors';
+} from './selectors';
 
 import {
   invalidateRequests,
-} from './src/actions';
+} from './actions';
 
-export { default as buildApi } from './src/buildApi';
-export { default as reducer } from './src/reducer';
-export { default as middleware } from './src/middleware';
-export { default as query } from './src/query';
+export { default as buildApi } from './buildApi';
+export { default as reducer } from './reducer';
+export { default as middleware } from './middleware';
+export { default as query } from './query';
 
 export {
   get,
@@ -38,6 +38,6 @@ export {
   getRequestError,
   getRequestInfo,
 
-  clearRequests,
+  invalidateRequests,
 };
 

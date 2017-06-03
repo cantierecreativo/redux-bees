@@ -1,24 +1,17 @@
-import { buildApi, get, post, patch, destroy } from '../index';
+import { buildApi, get, post, patch, destroy } from 'redux-bees';
 
 const apiEndpoints = {
-  getAccount:     { method: get,     path: '/account' },
-  createAccount:  { method: post,    path: '/accounts' },
-  updateAccount:  { method: patch,   path: '/account' },
-  updatePassword: { method: patch,   path: '/account/update_password' },
-  createSession:  { method: post,    path: '/sessions' },
-  importSite:     { method: post,    path: '/sites/import' },
-  createSite:     { method: post,    path: '/sites' },
-  getSite:        { method: get,     path: '/sites/:id' },
-  getSites:       { method: get,     path: '/sites' },
-  destroySite:    { method: destroy, path: '/sites/:id' },
+  getSite:           { method: get, path: '/site' },
+  getModelRecords:   { method: get, path: '/items', required: ['filter[type]'] },
 };
 
 const config = {
-  baseUrl: 'https://api.hardypress.com',
+  baseUrl: 'https://site-api.datocms.com',
   configureHeaders(headers) {
     return {
       ...headers,
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50X2lkIjoxfQ.7B7xRhmpBS57hCIWBeaAvhpR2geALWdBckpuaMZa0rs',
+      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzaXRlX2lkIjo3MiwiYWNjb3VudCI6dHJ1ZX0.d4sBKdrTOWt8sMPCVCMCaBD5C4Ibx4aaQDUDWIeoZio',
+      'X-Site-Domain': 'empty-wind-6725.admin.datocms.com'
     };
   },
 };

@@ -25,14 +25,14 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
 
       componentWillReceiveProps(nextProps) {
         if (!nextProps.request.isLoading && !nextProps.request.hasStarted) {
-          this.fetch();
+          this.fetch(nextProps);
         }
       }
 
-      fetch() {
-        const { dispatch } = this.props;
+      fetch(props = this.props) {
+        const { dispatch } = props;
 
-        return dispatch(dispatcher(apiCall, this.props));
+        return dispatch(dispatcher(apiCall, props));
       }
 
       render() {
