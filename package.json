@@ -1,6 +1,6 @@
 {
   "name": "redux-bees",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A nice, declarative way of managing JSON API calls with Redux",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "prop-types": "^15.5.10",
-    "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "redux": "^3.6.0",
     "rimraf": "^2.6.1",
@@ -32,6 +31,7 @@
     "object-path-immutable": "^0.5.1",
     "object.omit": "^2.0.1",
     "query-string": "^4.3.4",
-    "react-redux": "^5.0.5"
+    "react-redux": "*",
+    "react": "*"
   }
 }
