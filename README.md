@@ -369,6 +369,34 @@ If your API call requires specific parameters in the query string, they can be d
 
 Marvellous!! :v::v:
 
+## Retrieving compound documents
+
+To reduce the number of HTTP requests, JSON API servers [may allow responses 
+that include related resources along with the requested primary resources](http://jsonapi.org/format/#document-compound-documents) using the `include` query string.
+
+You can access included entities with the `getRelationship` selector:
+
+```js
+import { query, getRelationship } from 'redux-bees';
+import { connect } from 'react-redux';
+
+import api from './api';
+
+@query('post', api.getPost, (perform, props) => (
+  perform({ id: props.match.params.id, include: 'categories' })
+))
+
+@connect((state, props) => ({
+  categories: getRelationship(state, props.post, 'categories')
+}))
+
+export default class App extends React.Component {
+  render() {
+    //...
+  }
+}
+```
+
 ## License
 
 ISC

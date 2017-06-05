@@ -13,6 +13,10 @@ function getRawRequest(state, apiCall, args) {
 }
 
 export function getEntity(state, handle) {
+  if (!handle) {
+    return null;
+  }
+
   if (!state.bees.entities) {
     return null;
   }
@@ -22,6 +26,20 @@ export function getEntity(state, handle) {
   }
 
   return state.bees.entities[handle.type][handle.id];
+}
+
+export function getRelationship(state, entity, relationshipName) {
+  if (!entity) {
+    return null;
+  }
+
+  const { data } = entity.relationships[relationshipName];
+
+  if (Array.isArray(data)) {
+    return data.map(handle => getEntity(state, handle));
+  }
+
+  return getEntity(state, data);
 }
 
 export function getRequestResult(state, apiCall, args) {

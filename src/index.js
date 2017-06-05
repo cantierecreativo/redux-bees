@@ -8,6 +8,7 @@ import {
 
 import {
   getEntity,
+  getRelationship,
   getRequestResult,
   isRequestLoading,
   hasRequestStarted,
@@ -32,6 +33,7 @@ export {
   destroy,
 
   getEntity,
+  getRelationship,
   getRequestResult,
   isRequestLoading,
   hasRequestStarted,
