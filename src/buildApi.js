@@ -36,9 +36,10 @@ export default function buildApi(endpoints, config = {}) {
         }),
       };
 
-      const callable = requiredPlaceholders.every(key => placeholders[key]);
+      const missingPlaceholders = requiredPlaceholders.filter(key => !placeholders[key]);
 
-      if (!callable) {
+      if (missingPlaceholders.length > 0) {
+        console.error(`The "${key}" API call cannot be performed. The following params were not specified: ${missingPlaceholders.join(', ')}`);
         return { type: '@BEESNOOP' };
       }
 
