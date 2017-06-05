@@ -1,4 +1,4 @@
-# redux-bees 
+e redux-bees 
 
 A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
 
@@ -29,6 +29,7 @@ const apiEndpoints = {
   createPost:    { method: post,    path: '/posts' },
   updatePost:    { method: patch,   path: '/posts/:id' },
   destroyPost:   { method: destroy, path: '/posts/:id' },
+  getCategory:   { method: get,     path: '/categories/:id' },
   getComments:   { method: get,     path: '/posts/:postId/relationships/comments' },
   createComment: { method: post,    path: '/posts/:postId/relationships/comments' },
 };
@@ -151,6 +152,8 @@ const store = createStore(
 );
 ```
 
+## State selectors
+
 This will enable you to dispatch API calls, and get back the result from your 
 Redux state using one of these selectors:
 
@@ -198,7 +201,8 @@ setTimeout(() => {
 ```
 
 The current state of your API calls will be saved in store in the following, 
-normalized form:
+normalized form. The `bees` section of the store should be considered a private
+area and should be accessed via our state selectors.
 
 ```js
 store.getState();
@@ -242,14 +246,58 @@ store.getState();
 To make it easier to integrate data fetching in your component, you can use
 a specific higher-order component called `query`. 
 
-Example of usage: 
+Basic example of usage: 
 
 ```js
 import React from 'react';
 import api from './api';
 import { query } from 'redux-bees';
 
-@query('post', api.getPost, (call, props) => call({ id: props.match.params.id }))
+@query('posts', api.getPosts)
+
+export default class App extends React.Component {
+  render() {
+    const { posts, status } = this.props;
+
+    return (
+      <div>
+        {
+          !status.posts.hasStarted &&
+            'Request not started...'
+        }
+        {
+          status.posts.isLoading &&
+            'Loading...'
+        }
+        {
+          status.posts.hasFailed &&
+            JSON.stringify(status.posts.error)
+        }
+        {
+          posts &&
+            JSON.stringify(posts)
+        }
+      </div>
+    );
+  }
+}
+```
+
+The `query` HOC takes the following ordinal arguments: 
+
+* The name of the prop that will be passed down to the component (ie. `'post'`);
+* The API call to dispatch (ie. `api.getPost`);
+
+The HOC will always add a `status` prop, containing all the info about the API request.
+
+If the API call needs parameters (for example, to get a single post), you pass a third argument:
+
+```js
+import React from 'react';
+import api from './api';
+import { query } from 'redux-bees';
+
+@query('post', api.getPost, (perform, props) => perform({ id: props.match.params.id }))
 
 export default class App extends React.Component {
   render() {
@@ -279,16 +327,57 @@ export default class App extends React.Component {
 }
 ```
 
-The `query` HOC takes the following ordinal arguments: 
+In this example, the function `(perform, props) => perform({ id: props.match.params.id })` will be used to actually dispatch the API call with the correct arguments. 
 
-* the name of the prop that will be passed down to the component (ie. `'post'`);
-* the API call to dispatch (ie. `api.getPost`);
-* the function that will be used to actually dispatch the API call with the correct arguments.
+You can decorate your component with multiple `@query` HOCs:
 
-The HOC will always add a `status` prop, containing all the info about the API request.
+```js
+import React from 'react';
+import api from './api';
+import { query } from 'redux-bees';
 
-You can decorate your component with multiple `@query` HOCs, and the `status` prop will
-be a merge.
+@query('post', api.getPost, (perform, props) => perform({ id: props.match.params.id }))
+
+@query('comments', api.getComments, (perform, props) => perform({ postId: props.post && props.post.id }))
+
+export default class App extends React.Component {
+  render() {
+    //...
+  }
+}
+```
+
+In this case, `status.post` indicates the status of the `api.getPost` API call, and `status.comments` indicates the status of the `api.getComments` call.
+
+## Dependent data loading
+
+Consider this case: 
+
+```js
+@query('post', api.getPost, (perform, props) => perform({ id: props.match.params.id }))
+
+@query('category', api.getCategory, (perform, props) => (
+  perform({ id: props.post && props.post.relationships.category.data.id })
+))
+```
+
+The `api.getCategory` call cannot be made until we receive the `post`. `redux-bees` handles this automatically: the call is only made when `props.post && props.post.relationships.category.data.id` returns a value. This is because in this API call the `id` parameter is considered required, as it is indicated with a placeholder:
+
+```
+  ...
+  getCategory:   { method: get, path: '/categories/:id' },
+  ...
+```
+
+If your API call requires specific parameters in the query string, they can be declared as follows:
+
+```
+  ...
+  getPosts:   { method: get, path: '/posts', required: [ 'page' ] },
+  ...
+```
+
+Marvellous!! :v::v:
 
 ## License
 
