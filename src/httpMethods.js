@@ -8,14 +8,14 @@ export const get = function get(placeholders = {}, options = {}) {
   };
 };
 
-// placeholders, body, options
-// body, options
 // body
+// placeholders, body
+// placeholders, body, options
 
 export const post = function post(...args) {
-  const placeholders = args.length >= 3 ? args[0] : {};
-  const body = args.length >= 3 ? args[1] : args[0];
-  const options = args.length >= 2 ? args[args.length - 1] : {};
+  const placeholders = args.length >= 2 ? args[0] : {};
+  const body = args.length >= 2 ? args[1] : args[0];
+  const options = args.length == 3 ? args[2] : {};
 
   return {
     placeholders,
@@ -28,14 +28,14 @@ export const post = function post(...args) {
   };
 };
 
-// placeholders, body, options
-// body, options
 // body
+// placeholders, body
+// placeholders, body, options
 
 export const patch = function patch(...args) {
-  const placeholders = args.length >= 3 ? args[0] : {};
-  const body = args.length >= 3 ? args[1] : args[0];
-  const options = args.length >= 2 ? args[args.length - 1] : {};
+  const placeholders = args.length >= 2 ? args[0] : {};
+  const body = args.length >= 2 ? args[1] : args[0];
+  const options = args.length == 3 ? args[2] : {};
 
   return {
     placeholders,
@@ -48,14 +48,14 @@ export const patch = function patch(...args) {
   };
 };
 
-// placeholders, body, options
-// body, options
 // body
+// placeholders, body
+// placeholders, body, options
 
 export const put = function patch(...args) {
-  const placeholders = args.length >= 3 ? args[0] : {};
-  const body = args.length >= 3 ? args[1] : args[0];
-  const options = args.length >= 2 ? args[args.length - 1] : {};
+  const placeholders = args.length >= 2 ? args[0] : {};
+  const body = args.length >= 2 ? args[1] : args[0];
+  const options = args.length == 3 ? args[2] : {};
 
   return {
     placeholders,
