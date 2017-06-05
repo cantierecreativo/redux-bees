@@ -1,6 +1,6 @@
 # redux-bees 
 
-A nice, declarative way of managing JSON API calls with Redux
+A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
 
 ## Installation
 
@@ -286,6 +286,9 @@ The `query` HOC takes the following ordinal arguments:
 * the function that will be used to actually dispatch the API call with the correct arguments.
 
 The HOC will always add a `status` prop, containing all the info about the API request.
+
+You can decorate your component with multiple `@query` HOCs, and the `status` prop will
+be a merge.
 
 ## License
 
