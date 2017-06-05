@@ -72,7 +72,7 @@ api.getPosts()
 });
 ```
 
-The arguments you need to pass depend on the HTTP method of the request and 
+The arguments you need to pass depends on the HTTP method of the request and 
 the presence of placeholders in the path declared for the endpoint:
 
 ```js
