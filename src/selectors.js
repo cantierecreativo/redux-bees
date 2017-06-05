@@ -48,7 +48,7 @@ export function hasRequestStarted(state, apiCall, args) {
   return !!request;
 }
 
-export function getRawRequestError(state, apiCall, args) {
+export function getRequestError(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
 
   if (!request) {
@@ -59,7 +59,7 @@ export function getRawRequestError(state, apiCall, args) {
 }
 
 export function getRequestInfo(state, apiCall, args) {
-  const error = getRawRequestError(state, apiCall, args);
+  const error = getRequestError(state, apiCall, args);
 
   return {
     hasStarted: hasRequestStarted(state, apiCall, args),

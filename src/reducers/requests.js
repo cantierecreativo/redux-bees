@@ -22,7 +22,7 @@ export default function reducer(state = initialState, action) {
       [name, JSON.stringify(params)],
       {
         isLoading: true,
-        data: null,
+        response: null,
         error: null,
       },
     );
