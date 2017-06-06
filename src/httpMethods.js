@@ -22,7 +22,7 @@ export const post = function post(...args) {
     options: {
       method: 'POST',
       mode: 'cors',
-      body: JSON.stringify(body),
+      body: body && JSON.stringify(body),
       ...options,
     }
   };
@@ -42,7 +42,7 @@ export const patch = function patch(...args) {
     options: {
       method: 'PATCH',
       mode: 'cors',
-      body: JSON.stringify(body),
+      body: body && JSON.stringify(body),
       ...options,
     }
   };
@@ -62,7 +62,7 @@ export const put = function patch(...args) {
     options: {
       method: 'PUT',
       mode: 'cors',
-      body: JSON.stringify(body),
+      body: body && JSON.stringify(body),
       ...options,
     }
   };
