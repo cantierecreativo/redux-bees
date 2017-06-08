@@ -98,6 +98,20 @@ api.createComment({ postId: 12 }, { data: { type: 'comment', attributes: { ... }
 // POST https://api.yourservice.com/posts/12/relationships/comments
 ```
 
+If you perform multiple concurrent requests to the same endpoint with the same
+parameters, a single API call will be performed, and every request will be
+attached to the same promise:
+
+```js
+api.getPost({ id: 12 })
+.then(data => console.log(data));
+
+// This won't produce a new API call
+
+api.getPost({ id: 12 })
+.then(data => console.log(data));
+```
+
 ### Customize headers
 
 By default, API calls will have the following headers setup for you:
@@ -262,6 +276,7 @@ export default class App extends React.Component {
         hasStarted: PropTypes.bool.isRequired,
         isLoading: PropTypes.bool.isRequired,
         hasFailed: PropTypes.bool.isRequired,
+        invalidate: PropTypes.func.isRequired,
         error: PropTypes.object,
       }),
     }),
@@ -367,8 +382,6 @@ If your API call requires specific parameters in the query string, they can be d
   ...
 ```
 
-Marvellous!! :v::v:
-
 ## Retrieving compound documents
 
 To reduce the number of HTTP requests, JSON API servers [may allow responses 
@@ -395,6 +408,79 @@ export default class App extends React.Component {
     //...
   }
 }
+```
+
+## Forced refetch
+
+The `status` prop contains an `refetch()` function you can use when you need 
+to force a refetch of data:
+
+```js
+import React from 'react';
+import api from './api';
+import { query } from 'redux-bees';
+
+@query('posts', api.getPosts)
+
+export default class App extends React.Component {
+  componentDidMount() {
+    const { status } = this.props;
+
+    setTimeout(() => {
+      status.posts.refetch();
+    }, 2000);
+  }
+
+  render() {
+    const { posts } = this.props;
+
+    return (
+      <div>
+        { posts && JSON.stringify(posts) }
+      </div>
+    );
+  }
+}
+```
+
+## Cache invalidation
+
+After some destructive call (ie. creation of a new post), you often need to 
+invalidate one or more API calls may have previously made (ie. the index of posts).
+
+In this case, you can dispatch the `invalidateRequests` action:
+
+```js
+import React from 'react';
+import api from './api';
+import { query, invalidateRequests } from 'redux-bees';
+
+@query('posts', api.getPosts)
+
+export default class App extends React.Component {
+
+  handleSubmit(attributes) {
+    const { dispatch } = this.props;
+    
+    dispatch(api.createPost({ 
+      data: { 
+        type: 'post', 
+        attributes: values
+      }
+    }))
+    .then(() => {
+      dispatch(invalidateRequests(api.getPosts));
+    });
+  }
+}
+```
+
+Calling `invalidateRequests(api.getPosts)` will invalidate **every previous API
+call** made to the `api.getPosts` endpoint. If you just want to invalidate a specific
+API call, pass the call parameters as second argument:
+
+```
+dispatch(invalidateRequests(api.getPosts, [{ page: '2' }]));
 ```
 
 ## License

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getRequestInfo } from './selectors';
+import { invalidateRequests } from './actions';
 import omit from 'object.omit';
 
 const defaultDispatcher = call => call();
@@ -31,7 +32,6 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
 
       fetch(props = this.props) {
         const { dispatch } = props;
-
         return dispatch(dispatcher(apiCall, props));
       }
 
@@ -43,7 +43,7 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
             ...this.props.status,
             [propName]: {
               ...omit(this.props.request, ['result']),
-              fetch: this.fetch,
+              refetch: this.fetch,
             },
           },
         };

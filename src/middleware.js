@@ -2,12 +2,16 @@ const defaultProcessor = (result) => result;
 
 export default function buildMiddleware(promiseProcessor = defaultProcessor) {
   return () => next => (promise) => {
-    if (promise.type === '@BEESNOOP') {
+    if (!promise) {
       return;
     }
 
     if (!promise.then) {
       return next(promise);
+    }
+
+    if (promise.noop) {
+      return;
     }
 
     const meta = {
