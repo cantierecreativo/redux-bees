@@ -446,7 +446,8 @@ export default class App extends React.Component {
 ## Cache invalidation
 
 After some destructive call (ie. creation of a new post), you often need to 
-invalidate one or more API calls may have previously made (ie. the index of posts).
+invalidate one or more API calls that may have been previously made (ie. the 
+index of posts).
 
 In this case, you can dispatch the `invalidateRequests` action:
 
