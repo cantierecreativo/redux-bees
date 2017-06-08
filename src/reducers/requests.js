@@ -17,15 +17,22 @@ export default function reducer(state = initialState, action) {
   const { type: metaType, name, params } = action.meta;
 
   if (metaType === 'request') {
-    return immutable.set(
-      state,
-      [name, JSON.stringify(params)],
-      {
-        isLoading: true,
-        response: null,
-        error: null,
-      },
+    let newState = state;
+
+    newState = immutable.set(
+      newState,
+      [name, JSON.stringify(params), 'isLoading'],
+      true,
     );
+
+    newState = immutable.set(
+      newState,
+      [name, JSON.stringify(params), 'error'],
+      null,
+    );
+
+    return newState;
+
   } else if (metaType === 'response' && action.payload) {
     let newState = state;
     const { data } = action.payload;
