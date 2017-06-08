@@ -16,9 +16,9 @@ export default function reducer(state = initialState, action) {
     let items;
 
     if (Array.isArray(data)) {
-      items = items.concat(data);
+      items = data;
     } else if (data) {
-      items = items.concat([data]);
+      items = [data];
     } else {
       items = [];
     }
