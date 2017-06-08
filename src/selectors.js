@@ -45,7 +45,7 @@ export function getRelationship(state, entity, relationshipName) {
 export function getRequestResult(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
 
-  if (!request || request.isLoading || request.error) {
+  if (!request || !request.response) {
     return null;
   }
 
@@ -63,7 +63,16 @@ export function isRequestLoading(state, apiCall, args) {
 
 export function hasRequestStarted(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
-  return !!request;
+
+  if (!request) {
+    return false;
+  }
+
+  if (request.invalid) {
+    return false;
+  }
+
+  return true;
 }
 
 export function getRequestError(state, apiCall, args) {

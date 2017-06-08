@@ -4,10 +4,27 @@ const initialState = {};
 
 export default function reducer(state = initialState, action) {
   if (action.type === 'requests/invalidate') {
-    return immutable.del(
-      state,
-      action.payload.name,
-    );
+    const { actionName, params } = action.payload;
+
+    if (params) {
+      if (state[actionName] && state[actionName][JSON.stringify(params)]) {
+        return immutable.set(
+          state,
+          [actionName, JSON.stringify(params), 'invalid'],
+          true,
+        );
+      }
+    } else if (state[actionName]) {
+      return Object.keys(state[actionName]).reduce((acc, params) => {
+        return immutable.set(
+          acc,
+          [actionName, params, 'invalid'],
+          true,
+        );
+      }, state);
+    }
+
+    return state;
   }
 
   if (!action.meta || !action.meta.api) {
@@ -29,6 +46,11 @@ export default function reducer(state = initialState, action) {
       newState,
       [name, JSON.stringify(params), 'error'],
       null,
+    );
+
+    newState = immutable.del(
+      newState,
+      [name, JSON.stringify(params), 'invalid'],
     );
 
     return newState;
@@ -73,6 +95,12 @@ export default function reducer(state = initialState, action) {
       newState,
       [name, JSON.stringify(params), 'isLoading'],
       false,
+    );
+
+    newState = immutable.set(
+      newState,
+      [name, JSON.stringify(params), 'response'],
+      null,
     );
 
     newState = immutable.set(

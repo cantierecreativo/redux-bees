@@ -1,6 +1,9 @@
-export function invalidateRequests(apiCall) {
+export function invalidateRequests(apiCall, params = null) {
   return {
     type: 'requests/invalidate',
-    payload: { name: apiCall.actionName }
+    payload: {
+      actionName: apiCall.actionName,
+      params,
+    }
   };
 }
