@@ -466,7 +466,7 @@ export default class App extends React.Component {
     dispatch(api.createPost({ 
       data: { 
         type: 'post', 
-        attributes: values
+        attributes,
       }
     }))
     .then(() => {
