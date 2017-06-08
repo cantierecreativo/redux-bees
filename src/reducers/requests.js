@@ -30,9 +30,13 @@ export default function reducer(state = initialState, action) {
     let newState = state;
     const { data } = action.payload;
 
-    const normalizedData = Array.isArray(data) ?
-      data.map(record => ({ id: record.id, type: record.type })) :
-      { id: data.id, type: data.type };
+    let normalizedData = null;
+
+    if (Array.isArray(data)) {
+      normalizedData = data.map(record => ({ id: record.id, type: record.type }));
+    } else if (data && data.id) {
+      normalizedData = { id: data.id, type: data.type };
+    }
 
     newState = immutable.set(
       newState,
