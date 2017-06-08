@@ -13,12 +13,14 @@ export default function reducer(state = initialState, action) {
     let newState = state;
     const { data, included } = action.payload;
 
-    let items = [];
+    let items;
 
     if (Array.isArray(data)) {
       items = items.concat(data);
-    } else {
+    } else if (data) {
       items = items.concat([data]);
+    } else {
+      items = [];
     }
 
     if (Array.isArray(included)) {
