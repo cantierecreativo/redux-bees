@@ -276,7 +276,7 @@ export default class App extends React.Component {
         hasStarted: PropTypes.bool.isRequired,
         isLoading: PropTypes.bool.isRequired,
         hasFailed: PropTypes.bool.isRequired,
-        invalidate: PropTypes.func.isRequired,
+        refetch: PropTypes.func.isRequired,
         error: PropTypes.object,
       }),
     }),
