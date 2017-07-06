@@ -91,7 +91,7 @@ api.updatePost({ id: 12 }, { data: { id: 12, type: 'post', attributes: { ... }}}
 api.destroyPost({ id: 12 })
 // DELETE https://api.yourservice.com/posts/12
 
-api.getComments({ postId: 12 }
+api.getComments({ postId: 12 })
 // GET https://api.yourservice.com/posts/12/relationships/comments
 
 api.createComment({ postId: 12 }, { data: { type: 'comment', attributes: { ... }}})
