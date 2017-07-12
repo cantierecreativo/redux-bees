@@ -47,23 +47,29 @@ You can then perform API requests like this:
 api.getPosts()
 .then((result) => {
   // {
-  //   data: [
-  //     {
-  //       id: 413,
-  //       type: 'posts',
-  //       attributes: {
-  //         title: 'My awesome post',
-  //         ...
+  //   status: 404,
+  //   headers: {
+  //     'content-type': 'application/vnd.api+json'
+  //   },
+  //   body: {
+  //     data: [
+  //       {
+  //         id: 413,
+  //         type: 'posts',
+  //         attributes: {
+  //           title: 'My awesome post',
+  //           ...
+  //         }
   //       }
-  //     }
-  //   ]
+  //     ]
+  //   }
   // }
 })
 .catch((error) => {
   // {
   //   status: 404,
   //   headers: {
-  //     ... 
+  //     'content-type': 'application/vnd.api+json'
   //   },
   //   body: {
   //     errors: [
