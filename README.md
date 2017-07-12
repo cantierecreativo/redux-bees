@@ -47,7 +47,7 @@ You can then perform API requests like this:
 api.getPosts()
 .then((result) => {
   // {
-  //   status: 404,
+  //   status: 200,
   //   headers: {
   //     'content-type': 'application/vnd.api+json'
   //   },
@@ -247,6 +247,7 @@ store.getState();
 //           isLoading: false,
 //           error: null,
 //           response: [ { id: '12', type: 'post' } ],
+//           status: 200,
 //           headers: {
 //             'content-type': 'application/vnd.api+json'
 //           }
@@ -257,6 +258,7 @@ store.getState();
 //           isLoading: false,
 //           error: null,
 //           response: { id: '12', type: 'post' },
+//           status: 200,
 //           headers: {
 //             'content-type': 'application/vnd.api+json'
 //           }
