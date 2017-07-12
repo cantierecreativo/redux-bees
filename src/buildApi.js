@@ -33,9 +33,9 @@ export default function buildApi(endpoints, config = {}) {
       const augmentedOptions = {
         ...options,
         headers: configureHeaders({
-          ...options.headers,
           'Content-Type': 'application/vnd.api+json',
           Accept: 'application/vnd.api+json',
+          ...options.headers,
         }),
       };
 

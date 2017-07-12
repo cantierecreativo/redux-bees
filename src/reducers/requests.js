@@ -57,29 +57,38 @@ export default function reducer(state = initialState, action) {
 
   } else if (metaType === 'response' && action.payload) {
     let newState = state;
-    const { data } = action.payload;
 
-    let normalizedData;
+    if (action.payload.body) {
+      const { data } = action.payload.body;
 
-    if (Array.isArray(data)) {
-      normalizedData = data.map(record => ({ id: record.id, type: record.type }));
-    } else if (data && data.id) {
-      normalizedData = { id: data.id, type: data.type };
-    } else {
-      normalizedData = null;
+      let normalizedData;
+
+      if (Array.isArray(data)) {
+        normalizedData = data.map(record => ({ id: record.id, type: record.type }));
+      } else if (data && data.id) {
+        normalizedData = { id: data.id, type: data.type };
+      } else {
+        normalizedData = null;
+      }
+
+      newState = immutable.set(
+        newState,
+        [name, JSON.stringify(params), 'response'],
+        normalizedData,
+      );
     }
 
     newState = immutable.set(
       newState,
-      [name, JSON.stringify(params), 'response'],
-      normalizedData,
+      [name, JSON.stringify(params), 'headers'],
+      action.payload.headers,
     );
 
-    // newState = immutable.set(
-    //   newState,
-    //   [action.type, JSON.stringify(params), 'totalCount'],
-    //   parseInt(headers['x-total'], 10),
-    // );
+    newState = immutable.set(
+      newState,
+      [name, JSON.stringify(params), 'status'],
+      action.payload.status,
+    );
 
     newState = immutable.set(
       newState,
@@ -103,11 +112,44 @@ export default function reducer(state = initialState, action) {
       null,
     );
 
-    newState = immutable.set(
-      newState,
-      [name, JSON.stringify(params), 'error'],
-      action.payload,
-    );
+    if (action.payload instanceof Error) {
+
+      newState = immutable.set(
+        newState,
+        [name, JSON.stringify(params), 'error'],
+        action.payload.message
+      );
+
+      newState = immutable.del(
+        newState,
+        [name, JSON.stringify(params), 'headers'],
+      );
+
+      newState = immutable.del(
+        newState,
+        [name, JSON.stringify(params), 'status'],
+      );
+
+    } else {
+
+      newState = immutable.set(
+        newState,
+        [name, JSON.stringify(params), 'error'],
+        action.payload.body
+      );
+
+      newState = immutable.set(
+        newState,
+        [name, JSON.stringify(params), 'headers'],
+        action.payload.headers,
+      );
+
+      newState = immutable.set(
+        newState,
+        [name, JSON.stringify(params), 'status'],
+        action.payload.status,
+      );
+    }
 
     return newState;
   }

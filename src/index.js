@@ -13,6 +13,7 @@ import {
   isRequestLoading,
   hasRequestStarted,
   getRequestError,
+  getRequestHeaders,
   getRequestInfo,
 } from './selectors';
 

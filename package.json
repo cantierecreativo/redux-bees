@@ -1,12 +1,13 @@
 {
   "name": "redux-bees",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "A nice, declarative way of managing JSON API calls with Redux",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "rimraf lib && mkdir lib && npm run lib",
     "start": "webpack-dev-server --open",
-    "lib": "babel src --out-dir lib"
+    "lib": "babel src --out-dir lib",
+    "test": "babel-node test/index.js | tap-dot"
   },
   "files": [
     "lib"
@@ -24,6 +25,8 @@
     "react-dom": "^15.5.4",
     "redux": "^3.6.0",
     "rimraf": "^2.6.1",
+    "tap-dot": "^1.0.5",
+    "tape": "^4.7.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
@@ -31,7 +34,7 @@
     "object-path-immutable": "^0.5.1",
     "object.omit": "^2.0.1",
     "query-string": "^4.3.4",
-    "react-redux": "*",
-    "react": "*"
+    "react": "*",
+    "react-redux": "*"
   }
 }

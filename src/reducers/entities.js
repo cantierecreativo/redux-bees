@@ -9,9 +9,9 @@ export default function reducer(state = initialState, action) {
 
   const { type: metaType } = action.meta;
 
-  if (metaType === 'response' && action.payload) {
+  if (metaType === 'response' && action.payload && action.payload.body) {
     let newState = state;
-    const { data, included } = action.payload;
+    const { data, included } = action.payload.body;
 
     let items;
 

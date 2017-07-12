@@ -61,13 +61,19 @@ api.getPosts()
 })
 .catch((error) => {
   // {
-  //   errors: [
-  //     {
-  //       status: '404',
-  //       title:  'Resource not found',
-  //       ...
-  //     }
-  //   ]
+  //   status: 404,
+  //   headers: {
+  //     ... 
+  //   },
+  //   body: {
+  //     errors: [
+  //       {
+  //         status: '404',
+  //         title:  'Resource not found',
+  //         ...
+  //       }
+  //     ]
+  //   }
   // }
 });
 ```
@@ -118,7 +124,7 @@ By default, API calls will have the following headers setup for you:
 
 ```
 Content-Type: application/vnd.api+json
-Accept application/vnd.api+json
+Accept: application/vnd.api+json
 ```
 
 If you need to pass additional headers, you can use the `configureHeaders` option:
@@ -172,6 +178,7 @@ This will enable you to dispatch API calls, and get back the result from your
 Redux state using one of these selectors:
 
 * `getRequestResult(state, apiCall, args)`
+* `getRequestHeaders(state, apiCall, args)`
 * `isRequestLoading(state, apiCall, args)`
 * `hasRequestStarted(state, apiCall, args)`
 * `getRequestError(state, apiCall, args)`
@@ -185,6 +192,7 @@ Example:
 ```js
 import {
   getRequestResult,
+  getRequestHeaders,
   isRequestLoading,
   hasRequestStarted,
   getRequestError,
@@ -199,6 +207,7 @@ getRequestInfo(store.getState(), api.getPost, [{ id: 12 }]);
 //   isLoading: false,
 //   hasFailed: false,
 //   result: null,
+//   headers: null,
 //   error: null
 // }
 
@@ -208,6 +217,9 @@ setTimeout(() => {
   //   hasStarted: true,
   //   isLoading: false,
   //   hasFailed: false,
+  //   headers: {
+  //     'content-type': 'application/vnd.api+json'
+  //   },
   //   result: { id: 12, type: 'post', attributes: { ... } },
   //   error: null
   // }
@@ -229,6 +241,9 @@ store.getState();
 //           isLoading: false,
 //           error: null,
 //           response: [ { id: '12', type: 'post' } ],
+//           headers: {
+//             'content-type': 'application/vnd.api+json'
+//           }
 //         }
 //       }
 //       getPost: {
@@ -236,6 +251,9 @@ store.getState();
 //           isLoading: false,
 //           error: null,
 //           response: { id: '12', type: 'post' },
+//           headers: {
+//             'content-type': 'application/vnd.api+json'
+//           }
 //         }
 //       }
 //     },
@@ -277,6 +295,7 @@ export default class App extends React.Component {
         isLoading: PropTypes.bool.isRequired,
         hasFailed: PropTypes.bool.isRequired,
         refetch: PropTypes.func.isRequired,
+        headers: PropTypes.object,
         error: PropTypes.object,
       }),
     }),
