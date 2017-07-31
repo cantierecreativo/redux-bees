@@ -571,6 +571,10 @@ If your company or project uses `redux-bees`, feel free to add it to [the offici
 
 Project is still in the early stages. Please file an issue or submit a PR if you have suggestions! Or ping me (Stefano Verna) on [Twitter](https://twitter.com/steffoz).
 
+## Why is it called `redux-bees`?
+
+We're italians. Italian translation of "bees" is "api". You see what we did there? :hamster:
+
 ## License
 
 ISC
