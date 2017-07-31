@@ -573,7 +573,7 @@ Project is still in the early stages. Please file an issue or submit a PR if you
 
 ## Why is it called `redux-bees`?
 
-We're italians. Italian translation of "bees" is "api". You see what we did there? :hamster:
+We're italians. Italian translation of "bees" is "api". See what we did there? :hamster:
 
 ## License
 
