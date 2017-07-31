@@ -14,6 +14,9 @@ const config = {
       'X-Site-Domain': 'empty-wind-6725.admin.datocms.com'
     };
   },
+  afterResolve({ headers, status, body }) {
+    return { headers, status, body: { ...body, meta: 'puppa' }};
+  }
 };
 
 export default buildApi(apiEndpoints, config);

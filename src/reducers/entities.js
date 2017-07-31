@@ -11,7 +11,7 @@ export default function reducer(state = initialState, action) {
 
   if (metaType === 'response' && action.payload && action.payload.body) {
     let newState = state;
-    const { data, included, meta } = action.payload.body;
+    const { data, included } = action.payload.body;
 
     let items;
 
@@ -34,10 +34,6 @@ export default function reducer(state = initialState, action) {
         item,
       )
     ), newState);
-
-    if (meta) {
-      newState = immutable.set(newState, 'meta', meta);
-    }
 
     return newState;
   }

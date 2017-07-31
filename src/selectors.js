@@ -61,6 +61,11 @@ export function getRequestHeaders(state, apiCall, args) {
   return request && request.headers;
 }
 
+export function getRequestMeta(state, apiCall, args) {
+  const request = getRawRequest(state, apiCall, args);
+  return request && request.meta;
+}
+
 export function isRequestLoading(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
   return request && request.isLoading ? true : false;
@@ -99,6 +104,7 @@ export function getRequestInfo(state, apiCall, args) {
     hasFailed: !!error,
     result: getRequestResult(state, apiCall, args),
     headers: getRequestHeaders(state, apiCall, args),
+    meta: getRequestMeta(state, apiCall, args),
     error,
   };
 }

@@ -1,6 +1,4 @@
-const defaultProcessor = (result) => result;
-
-export default function buildMiddleware(promiseProcessor = defaultProcessor) {
+export default function buildMiddleware() {
   return () => next => (promise) => {
     if (!promise) {
       return;
@@ -26,7 +24,6 @@ export default function buildMiddleware(promiseProcessor = defaultProcessor) {
     });
 
     return promise
-    .then(promiseProcessor)
     .then((result) => {
       next({
         type: `api/${promise.actionName}/response`,

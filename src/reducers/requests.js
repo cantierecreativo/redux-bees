@@ -59,7 +59,7 @@ export default function reducer(state = initialState, action) {
     let newState = state;
 
     if (action.payload.body) {
-      const { data } = action.payload.body;
+      const { data, meta } = action.payload.body;
 
       let normalizedData;
 
@@ -76,6 +76,14 @@ export default function reducer(state = initialState, action) {
         [name, JSON.stringify(params), 'response'],
         normalizedData,
       );
+
+      if (meta) {
+        newState = immutable.set(
+          newState,
+          [name, JSON.stringify(params), 'meta'],
+          meta
+        );
+      }
     }
 
     newState = immutable.set(

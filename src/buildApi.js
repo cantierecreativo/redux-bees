@@ -5,12 +5,16 @@ import applyUrlWithPlaceholders from './applyUrlWithPlaceholders';
 const pendingPromises = {};
 
 const defaultConfigure = (options) => options;
+const defaultAfterResolve = (result) => Promise.resolve(result);
+const defaultAfterReject = (result) => Promise.reject(result);
 
 export default function buildApi(endpoints, config = {}) {
   const {
     baseUrl,
     configureOptions = defaultConfigure,
     configureHeaders = defaultConfigure,
+    afterResolve = defaultAfterResolve,
+    afterReject = defaultAfterReject,
   } = config;
 
   return Object.keys(endpoints).reduce((acc, key) => {
@@ -65,6 +69,7 @@ export default function buildApi(endpoints, config = {}) {
       pendingPromises[promiseId] = req;
 
       const promise = req
+        .then(afterResolve)
         .then((result) => {
           delete pendingPromises[promiseId];
           return result;
@@ -72,7 +77,8 @@ export default function buildApi(endpoints, config = {}) {
         .catch((error) => {
           delete pendingPromises[promiseId];
           return Promise.reject(error);
-        });
+        })
+        .catch(afterReject);
 
       promise.actionName = key;
       promise.params = args;

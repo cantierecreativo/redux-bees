@@ -14,6 +14,7 @@ import {
   hasRequestStarted,
   getRequestError,
   getRequestHeaders,
+  getRequestMeta,
   getRequestInfo,
 } from './selectors';
 

@@ -149,6 +149,29 @@ const config = {
 };
 ```
 
+## Resolve/reject middlewares
+
+If you need to execute specific code after every request, you can use the 
+`afterResolve` and `afterReject` options:
+
+```js
+const config = {
+  baseUrl: 'https://api.yourservice.com',
+  afterResolve(response) {
+    // feel free to tweak the response object here
+    return Promise.resolve(response);
+  },
+  afterReject(response) {
+    if (response.status === 401) {
+      // ie. redirect to login page
+      document.location = '/login';
+    } else {
+      return Promise.reject(response);
+    }
+  },
+};
+```
+
 ## Redux integration
 
 To integrate `redux-bees` with your Redux store, you need to add a reducer and
@@ -304,6 +327,7 @@ export default class App extends React.Component {
         hasFailed: PropTypes.bool.isRequired,
         refetch: PropTypes.func.isRequired,
         headers: PropTypes.object,
+        meta: PropTypes.object,
         error: PropTypes.object,
       }),
     }),
