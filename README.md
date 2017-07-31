@@ -567,6 +567,10 @@ dispatch(invalidateRequests(api.getPosts, [{ page: '2' }]));
 ## Who uses redux-bees
 If your company or project uses Recompose, feel free to add it to [the official list of users](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees) by [editing](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees/_edit) the wiki page.
 
+## Feedback wanted
+
+Project is still in the early stages. Please file an issue or submit a PR if you have suggestions! Or ping me (Stefano Verna) on [Twitter](https://twitter.com/steffoz).
+
 ## License
 
 ISC
