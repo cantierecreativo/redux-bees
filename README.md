@@ -151,22 +151,22 @@ const config = {
 
 ### Resolve/reject middlewares
 
-If you need to execute specific code after every request, you can use the 
-`afterResolve` and `afterReject` options:
+If you need to execute specific code after every request, or to tweak the response you get from the server, you can use the `afterResolve` and `afterReject` options:
 
 ```js
+import camelcaseKeys from 'camelcase-keys'
+    
 const config = {
   baseUrl: 'https://api.yourservice.com',
-  afterResolve(response) {
-    // feel free to tweak the response object here
-    return Promise.resolve(response);
+  afterResolve({ status, headers, body }) {
+    return Promise.resolve({ status, headers, body: camelcaseKeys(body) });
   },
-  afterReject(response) {
-    if (response.status === 401) {
+  afterReject({ status, headers, body }) {
+    if (status === 401) {
       // ie. redirect to login page
       document.location = '/login';
     } else {
-      return Promise.reject(response);
+      return Promise.reject({ status, headers, body: camelcaseKeys(body) });
     }
   },
 };
