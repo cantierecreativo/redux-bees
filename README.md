@@ -1,4 +1,4 @@
-# redux-bees 
+# redux-bees :honeybee:
 
 A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
 
