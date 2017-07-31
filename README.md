@@ -208,6 +208,7 @@ Redux state using one of these selectors:
 
 * `getRequestResult(state, apiCall, args)`
 * `getRequestHeaders(state, apiCall, args)`
+* `getRequestMeta(state, apiCall, args)`
 * `isRequestLoading(state, apiCall, args)`
 * `hasRequestStarted(state, apiCall, args)`
 * `getRequestError(state, apiCall, args)`
@@ -222,6 +223,7 @@ Example:
 import {
   getRequestResult,
   getRequestHeaders,
+  getRequestMeta,
   isRequestLoading,
   hasRequestStarted,
   getRequestError,
@@ -237,6 +239,7 @@ getRequestInfo(store.getState(), api.getPost, [{ id: 12 }]);
 //   hasFailed: false,
 //   result: null,
 //   headers: null,
+//   meta: null,
 //   error: null
 // }
 
@@ -248,6 +251,9 @@ setTimeout(() => {
   //   hasFailed: false,
   //   headers: {
   //     'content-type': 'application/vnd.api+json'
+  //   },
+  //   meta: { 
+  //     'responseTimeInMs': 69
   //   },
   //   result: { id: 12, type: 'post', attributes: { ... } },
   //   error: null
@@ -273,7 +279,8 @@ store.getState();
 //           status: 200,
 //           headers: {
 //             'content-type': 'application/vnd.api+json'
-//           }
+//           },
+//           meta: null,
 //         }
 //       }
 //       getPost: {
@@ -284,7 +291,8 @@ store.getState();
 //           status: 200,
 //           headers: {
 //             'content-type': 'application/vnd.api+json'
-//           }
+//           },
+//           meta: null,
 //         }
 //       }
 //     },
@@ -396,6 +404,27 @@ export default class App extends React.Component {
 ```
 
 In this case, `this.props.status.post` indicates the status of the `api.getPost` API call, and `this.props.status.comments` indicates the status of the `api.getComments` call.
+
+## Conditional fetch
+
+Your component might require to fetch data conditionally (ie. only if some parameter is present in the URL). In this case, you can use [recompose's `@branch` HOC](https://github.com/acdlite/recompose/blob/master/docs/API.md#branch) to apply the `@query` HOC only when needed:
+
+```js
+import React from 'react';
+import { query } from 'redux-bees';
+import { branch } from 'recompose';
+import api from './api';
+
+@branch(
+  (props) => props.params.showPopularPosts,
+  query('popularPosts', api.getPosts, (perform) => (
+    perform({ 'page[size]': 10, sort: 'pageViews', direction: 'desc' })
+  ))
+)
+
+export default class App extends React.Component {
+  // ...
+```
 
 ## Dependent data loading
 
