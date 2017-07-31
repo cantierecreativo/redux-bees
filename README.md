@@ -149,7 +149,7 @@ const config = {
 };
 ```
 
-## Resolve/reject middlewares
+### Resolve/reject middlewares
 
 If you need to execute specific code after every request, you can use the 
 `afterResolve` and `afterReject` options:
