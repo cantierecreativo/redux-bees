@@ -564,6 +564,9 @@ API call, pass the call parameters as second argument:
 dispatch(invalidateRequests(api.getPosts, [{ page: '2' }]));
 ```
 
+## Who uses redux-bees
+If your company or project uses Recompose, feel free to add it to [the official list of users](https://github.com/cantierecreativo/redux-bees/wiki/Sites-Using-Recompose) by [editing](https://github.com/acdlite/recompose/wiki/Sites-using-redux-bees/_edit) the wiki page.
+
 ## License
 
 ISC
