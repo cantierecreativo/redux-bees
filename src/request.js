@@ -1,5 +1,16 @@
+/**
+ * Runs the redux-bees api request.
+ * The baseUrl can also be a function which is assessed at runtime.
+ *
+ * @param {String|Function} baseUrl
+ * @param {String} path
+ * @param {Object} options
+ * @return {Promise}
+ */
+
 export default function request(baseUrl, path, options) {
-  return fetch(baseUrl + path, options)
+  const url = (typeof baseUrl === 'function' ? baseUrl() : baseUrl) + path
+  return fetch(url, options)
     .then((res) => {
       const headers = {};
       res.headers.forEach((value, name) => headers[name] = value);
