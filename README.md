@@ -601,7 +601,7 @@ export default class App extends React.Component {
 }
 ```
 
-```
+```js
 import { createServer } from 'http';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
