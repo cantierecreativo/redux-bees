@@ -2,6 +2,9 @@
   "presets": ["es2015", "react"],
   "plugins": [
     "transform-object-rest-spread",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    ["module-alias", [
+      { "src": "./src", "expose": "redux-bees" },
+    ]]
   ],
 }

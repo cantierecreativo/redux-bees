@@ -9,11 +9,13 @@ const reducer = combineReducers({
   bees: beesReducer,
 });
 
-export default createStore(
-  reducer,
-  compose(
-    applyMiddleware(beesMiddleware()),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
-);
+export default function() {
+  return createStore(
+    reducer,
+    compose(
+      applyMiddleware(beesMiddleware())
+      // window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  );
+}
 

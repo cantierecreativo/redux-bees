@@ -54,6 +54,11 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
     }
 
     Wrapper.displayName = `query(${getDisplayName(InnerComponent)}, ${propName})`;
+
+    Wrapper.loadData = function(dispatch, props) {
+      return dispatch(dispatcher(apiCall, props));
+    };
+
     hoistNonReactStatic(Wrapper, InnerComponent);
 
     const mapStateToProps = (state, props) => {

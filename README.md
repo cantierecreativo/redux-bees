@@ -430,7 +430,7 @@ import { branch } from 'recompose';
 import api from './api';
 
 @branch(
-  (props) => props.params.showPopularPosts,
+  (props) => props.showPopularPosts,
   query('popularPosts', api.getPosts, (perform) => (
     perform({ 'page[size]': 10, sort: 'pageViews', direction: 'desc' })
   ))
@@ -578,7 +578,73 @@ API call, pass the call parameters as second argument:
 dispatch(invalidateRequests(api.getPosts, [{ page: '2' }]));
 ```
 
+## Server-side data loading
+
+We seek to be composable with any approach, and not prescribe or lean toward any specific routing solution. 
+
+Components wrapped in a `@query` HOC expose a static function called `loadData` which accepts a redux `dispatch` function as first argument. It returns a Promise that resolves once data is loaded and saved to your Redux store.
+
+The server (with the help of [react-router](https://reacttraining.com/react-router/web/guides/server-rendering) or something similar) then checks which components match the route path and calls all of the `loadData` static functions if they're available.
+
+When all of these promises have been resolved, the server side can render the components and finish the request.
+
+Here's a simple example using [`react-router`](https://github.com/ReactTraining/react-router) and [`react-router-config`](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config):
+
+```js
+import React from 'react';
+import { query } from 'redux-bees';
+import api from './api';
+
+@query('posts', api.getPosts)
+export default class App extends React.Component {
+  // ...
+}
+```
+
+```
+import { createServer } from 'http';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { matchRoutes } from 'react-router-config';
+import { Provider } from 'react-redux';
+
+import createStore from './createStore';
+import App from './components/App';
+
+const routes = [
+  {
+    component: App,
+    path: '/'
+  },
+  // etc.
+];
+
+createServer((req, res) => {
+  const store = createStore();
+  const branch = matchRoutes(routes, req.url);
+
+  const promises = branch.map(({ route, match }) => {
+    return route.component.loadData ?
+      route.component.loadData(store.dispatch, { match }) :
+      Promise.resolve(null);
+  });
+
+  Promise.all(promises)
+  .then(() => {
+    const html = ReactDOMServer.renderToString(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    res.write(`<!doctype html><div id="app">${html}</div>`);
+    res.end();
+  });
+}).listen(3000);
+```
+
 ## Who uses redux-bees
+
 If your company or project uses `redux-bees`, feel free to add it to [the official list of users](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees) by [editing](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees/_edit) the wiki page.
 
 ## Feedback wanted
