@@ -84,7 +84,7 @@ api.getPosts()
 });
 ```
 
-The arguments you need to pass depend on the HTTP method of the request and 
+The arguments you need to pass depend on the HTTP method of the request and
 the presence of placeholders in the path declared for the endpoint:
 
 ```js
@@ -149,13 +149,27 @@ const config = {
 };
 ```
 
+### Customize baseUrl
+
+In some applications the URL Endpoint may change during runtime. To help with this scenario the baseUrl config option can either be a `String` or `Function`.
+
+```js
+import store from './store';
+
+const config = {
+  baseUrl() {
+    return `${store.getState().app.endpoint}`
+  }
+};
+```
+
 ### Resolve/reject middlewares
 
 If you need to execute specific code after every request, or to tweak the response you get from the server, you can use the `afterResolve` and `afterReject` options:
 
 ```js
 import camelcaseKeys from 'camelcase-keys'
-    
+
 const config = {
   baseUrl: 'https://api.yourservice.com',
   afterResolve({ status, headers, body }) {
@@ -203,7 +217,7 @@ const store = createStore(
 
 ## State selectors
 
-This will enable you to dispatch API calls, and get back the result from your 
+This will enable you to dispatch API calls, and get back the result from your
 Redux state using one of these selectors:
 
 * `getRequestResult(state, apiCall, args)`
@@ -217,7 +231,7 @@ If you want to retrieve all of the above info at once, you can use the following
 
 * `getRequestInfo(state, apiCall, args)`
 
-Example: 
+Example:
 
 ```js
 import {
@@ -252,7 +266,7 @@ setTimeout(() => {
   //   headers: {
   //     'content-type': 'application/vnd.api+json'
   //   },
-  //   meta: { 
+  //   meta: {
   //     'responseTimeInMs': 69
   //   },
   //   result: { id: 12, type: 'post', attributes: { ... } },
@@ -261,7 +275,7 @@ setTimeout(() => {
 }, 2000);
 ```
 
-The current state of your API calls will be saved in store in the following, 
+The current state of your API calls will be saved in store in the following,
 normalized form. The `bees` section of the store should be considered a private
 area and should be accessed via our [state selectors](#state-selectors).
 
@@ -315,7 +329,7 @@ store.getState();
 ## React integration
 
 To make it easier to integrate data fetching in your component, you can use
-a specific higher-order component called `query`. Basic example of usage: 
+a specific higher-order component called `query`. Basic example of usage:
 
 ```js
 import React from 'react';
@@ -368,7 +382,7 @@ export default class App extends React.Component {
 }
 ```
 
-The HOC takes the following ordinal arguments: 
+The HOC takes the following ordinal arguments:
 
 * The name of the prop that will be passed down to the component (ie. `'post'`);
 * The API call to dispatch (ie. `api.getPost`);
@@ -383,7 +397,7 @@ If the API call needs parameters (for example, to get a single post), you pass a
 ))
 ```
 
-The function `(perform, props) => perform(...)` will be used to actually dispatch the API call with the correct arguments. 
+The function `(perform, props) => perform(...)` will be used to actually dispatch the API call with the correct arguments.
 
 You can decorate your component with multiple `@query` HOCs:
 
@@ -428,7 +442,7 @@ export default class App extends React.Component {
 
 ## Dependent data loading
 
-Consider this case: 
+Consider this case:
 
 ```js
 @query('post', api.getPost, (perform, props) => (
@@ -464,7 +478,7 @@ If your API call requires specific parameters in the query string, they can be d
 
 ## Retrieving compound documents
 
-To reduce the number of HTTP requests, JSON API servers [may allow responses 
+To reduce the number of HTTP requests, JSON API servers [may allow responses
 that include related resources along with the requested primary resources](http://jsonapi.org/format/#document-compound-documents) using the `include` query string.
 
 You can access included entities with the `getRelationship` selector:
@@ -492,7 +506,7 @@ export default class App extends React.Component {
 
 ## Forced refetch
 
-The `status` prop contains an `refetch()` function you can use when you need 
+The `status` prop contains an `refetch()` function you can use when you need
 to force a refetch of data:
 
 ```js
@@ -525,8 +539,8 @@ export default class App extends React.Component {
 
 ## Cache invalidation
 
-After some destructive call (ie. creation of a new post), you often need to 
-invalidate one or more API calls that may have been previously made (ie. the 
+After some destructive call (ie. creation of a new post), you often need to
+invalidate one or more API calls that may have been previously made (ie. the
 index of posts).
 
 In this case, you can dispatch the `invalidateRequests` action:
@@ -542,10 +556,10 @@ export default class App extends React.Component {
 
   handleSubmit(attributes) {
     const { dispatch } = this.props;
-    
-    dispatch(api.createPost({ 
-      data: { 
-        type: 'post', 
+
+    dispatch(api.createPost({
+      data: {
+        type: 'post',
         attributes,
       }
     }))
