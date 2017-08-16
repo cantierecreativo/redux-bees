@@ -149,16 +149,16 @@ const config = {
 };
 ```
 
-### Customize baseUrl
+### Dynamic change of baseUrl
 
-In some applications the URL Endpoint may change during runtime. To help with this scenario the baseUrl config option can either be a `String` or `Function`.
+In some applications the URL Endpoint may change during runtime. To help with this scenario the baseUrl config option can either be a `String` or `Function`:
 
 ```js
 import store from './store';
 
 const config = {
   baseUrl() {
-    return `${store.getState().app.endpoint}`
+    return store.getState().app.endpoint;
   }
 };
 ```
