@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getRequestInfo } from './selectors';
 import { invalidateRequests } from './actions';
 import omit from 'object.omit';
+import hoistNonReactStatic from 'hoist-non-react-statics';
 
 const defaultDispatcher = call => call();
 
@@ -52,7 +53,8 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
       }
     }
 
-    Wrapper.displayName = `Query(${propName}, ${getDisplayName(InnerComponent)})`;
+    Wrapper.displayName = `query(${getDisplayName(InnerComponent)}, ${propName})`;
+    hoistNonReactStatic(Wrapper, InnerComponent);
 
     const mapStateToProps = (state, props) => {
       const argumentsAbsorber = (...args) => args;
