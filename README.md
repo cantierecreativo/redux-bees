@@ -19,6 +19,20 @@ so make sure to add a polyfill if your execution environment is not equipped wit
 
 # Usage
 
+* [Defining your API endpoints](#defining-your-api-endpoints)
+  * [Customize headers](#customize-headers)
+  * [Dynamic change of baseUrl](#dynamic-change-of-baseurl)
+  * [Resolve/reject middlewares](#resolvereject-middlewares)
+* [Redux integration](#redux-integration)
+* [State selectors](#state-selectors)
+* [React integration](#react-integration)
+* [Conditional fetch](#conditional-fetch)
+* [Dependent data loading](#dependent-data-loading)
+* [Retrieving compound documents](#retrieving-compound-documents)
+* [Forced refetch](#forced-refetch)
+* [Cache invalidation](#cache-invalidation)
+* [Server-side data loading](#server-side-data-loading)
+
 ## Defining your API endpoints
 
 Start by defining the endpoints of your API:
@@ -649,18 +663,18 @@ createServer((req, res) => {
 }).listen(3000);
 ```
 
-## Who uses redux-bees
+# Who uses redux-bees
 
 If your company or project uses `redux-bees`, feel free to add it to [the official list of users](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees) by [editing](https://github.com/cantierecreativo/redux-bees/wiki/Sites-using-redux-bees/_edit) the wiki page.
 
-## Feedback wanted
+# Feedback wanted
 
 Project is still in the early stages. Please file an issue or submit a PR if you have suggestions! Or ping me (Stefano Verna) on [Twitter](https://twitter.com/steffoz).
 
-## Why is it called `redux-bees`?
+# Why is it called `redux-bees`?
 
 We're italians. Italian translation of "bees" is "api". See what we did there? :hamster:
 
-## License
+# License
 
 ISC
