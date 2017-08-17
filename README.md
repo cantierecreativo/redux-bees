@@ -14,6 +14,9 @@ Or if you use Yarn:
 yarn add redux-bees
 ```
 
+This library makes use of the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make AJAX requests, 
+so make sure to add a polyfill if your execution environment is not equipped with it.
+
 # Usage
 
 ## Defining your API endpoints
