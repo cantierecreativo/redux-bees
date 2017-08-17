@@ -571,12 +571,15 @@ export default class App extends React.Component {
 ```
 
 Calling `invalidateRequests(api.getPosts)` will invalidate **every previous API
-call** made to the `api.getPosts` endpoint. If you just want to invalidate a specific
-API call, pass the call parameters as second argument:
+call** made to the `api.getPosts` endpoint. 
+
+To invalidate only a subset of the previously API calls made, you can pass a function 
+as second argument that will act as a filter:
 
 ```
-dispatch(invalidateRequests(api.getPosts, [{ page: '2' }]));
+dispatch(invalidateRequests(api.getPost, (params) => params.id === 2));
 ```
+
 
 ## Server-side data loading
 

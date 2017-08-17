@@ -13,8 +13,8 @@ export default function() {
   return createStore(
     reducer,
     compose(
-      applyMiddleware(beesMiddleware())
-      // window.devToolsExtension ? window.devToolsExtension() : f => f
+      applyMiddleware(beesMiddleware()),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
 }

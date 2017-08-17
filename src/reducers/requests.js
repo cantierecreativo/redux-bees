@@ -1,26 +1,32 @@
 import immutable from 'object-path-immutable';
 
+const invalidate = (state, actionName, key) => (
+  immutable.set(state, [actionName, key, 'invalid'], true)
+);
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
   if (action.type === 'requests/invalidate') {
     const { actionName, params } = action.payload;
 
-    if (params) {
-      if (state[actionName] && state[actionName][JSON.stringify(params)]) {
-        return immutable.set(
-          state,
-          [actionName, JSON.stringify(params), 'invalid'],
-          true,
-        );
-      }
-    } else if (state[actionName]) {
-      return Object.keys(state[actionName]).reduce((acc, params) => {
-        return immutable.set(
-          acc,
-          [actionName, params, 'invalid'],
-          true,
-        );
+    if (!state[actionName]) {
+      return state;
+    }
+
+    if (params && typeof params === 'function') {
+      return Object.keys(state[actionName]).reduce((acc, key) => {
+        if (params(...JSON.parse(key))) {
+          return invalidate(acc, actionName, key);
+        } else {
+          return acc;
+        }
+      }, state);
+    } else if (params && state[actionName][JSON.stringify(params)]) {
+      return invalidate(state, actionName, JSON.stringify(params));
+    } else if (!params) {
+      return Object.keys(state[actionName]).reduce((acc, key) => {
+        return invalidate(acc, actionName, key);
       }, state);
     }
 
