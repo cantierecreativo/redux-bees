@@ -40,6 +40,8 @@ export {
   isRequestLoading,
   hasRequestStarted,
   getRequestError,
+  getRequestHeaders,
+  getRequestMeta,
   getRequestInfo,
 
   invalidateRequests,
