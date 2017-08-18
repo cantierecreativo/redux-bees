@@ -593,7 +593,7 @@ call** made to the `api.getPosts` endpoint.
 To invalidate only a subset of the previously API calls made, you can pass a function 
 as second argument that will act as a filter:
 
-```
+```js
 dispatch(invalidateRequests(api.getPost, (params) => params.id === 2));
 ```
 
