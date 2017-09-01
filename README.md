@@ -1,4 +1,6 @@
-# redux-bees :honeybee::honeybee::honeybee:
+![redux-bees](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/logo.png)
+
+---
 
 ![downloads](https://img.shields.io/npm/dm/redux-bees.svg)
 
