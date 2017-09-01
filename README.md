@@ -1,10 +1,8 @@
 ![redux-bees](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/logo.png)
 
----
+A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
 
 ![downloads](https://img.shields.io/npm/dm/redux-bees.svg)
-
-A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
 
 ## Installation
 
