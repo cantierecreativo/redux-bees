@@ -43,7 +43,8 @@ export default function buildApi(endpoints, config = {}) {
         }),
       };
 
-      const missingPlaceholders = requiredPlaceholders.filter(key => !placeholders[key]);
+      const missingPlaceholders = requiredPlaceholders
+        .filter(key => !placeholders.hasOwnProperty(key));
 
       if (missingPlaceholders.length > 0) {
         const message = `The "${key}" API call cannot be performed. The following params were not specified: ${missingPlaceholders.join(', ')}`;
