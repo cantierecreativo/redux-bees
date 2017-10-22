@@ -33,8 +33,7 @@
     "tap-dot": "^1.0.5",
     "tape": "^4.7.0",
     "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5",
-    "lerna": "2.0.0-beta.23"
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.2.2",

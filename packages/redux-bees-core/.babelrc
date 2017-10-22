@@ -1,0 +1,11 @@
+{
+    "presets": ["es2015", "react"],
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-decorators-legacy",
+      ["module-alias", [
+        { "src": "./src", "expose": "redux-bees-core" },
+      ]]
+    ],
+  }
+  

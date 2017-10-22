@@ -1,11 +1,25 @@
 {
   "name": "redux-bees-core",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Redux Bees Core Package",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "rimraf lib && mkdir lib && npm run lib",
+    "lib": "babel src --out-dir lib"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Stefano Verna <s.verna@cantierecreativo.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-module-alias": "^1.6.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "node-fetch": "^1.7.2",
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
+    "query-string": "^4.3.4"
+  }
 }
