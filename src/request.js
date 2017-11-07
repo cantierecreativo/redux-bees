@@ -18,9 +18,13 @@ export default function request(baseUrl, path, options) {
       const response = {
         status: res.status,
         headers,
+        url: res.url,
       };
 
-      if (res.status !== 204) {
+      const contentType = headers['content-type'] || headers['Content-Type'];
+      const isJsonType = contentType && contentType.includes('json')
+
+      if (res.status !== 204 && isJsonType) {
         return res.json().then(body => ({ ...response, body }));
       }
 
