@@ -33,6 +33,19 @@ export function getRelationship(state, entity, relationshipName) {
     return null;
   }
 
+  const separatorIndex = relationshipName.indexOf('.');
+  if (separatorIndex !== -1) {
+    const head = relationshipName.substring(0, separatorIndex);
+    const tail = relationshipName.substring(separatorIndex + 1);
+    const newEntity = getRelationship(state, entity, head);
+
+    if (Array.isArray(newEntity)) {
+      return Array.prototype.concat.apply([], newEntity.map(handle => getRelationship(state, handle, tail)));
+    } else {
+      return getRelationship(state, newEntity, tail);
+    }
+  }
+
   const { data } = entity.relationships[relationshipName];
 
   if (Array.isArray(data)) {
