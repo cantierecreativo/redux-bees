@@ -33,7 +33,12 @@ export function getRelationship(state, entity, relationshipName) {
     return null;
   }
 
-  const { data } = entity.relationships[relationshipName];
+  const relationship = entity.relationships[relationshipName];
+  if (!relationship) {
+    return null;
+  }
+
+  const { data } = relationship;
 
   if (Array.isArray(data)) {
     return data.map(handle => getEntity(state, handle));
