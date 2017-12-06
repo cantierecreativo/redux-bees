@@ -556,6 +556,32 @@ export default class App extends React.Component {
 }
 ```
 
+If you provide any props-dependent parameters to the call you want to refetch, you must pass your props to the refetch call:
+
+```js
+import React from 'react';
+import api from './api';
+import { query } from 'redux-bees';
+
+@query('post', api.getPost, (perform, props) => (
+  perform({ id: props.match.params.id })
+))
+
+export default class App extends React.Component {
+  componentDidMount() {
+    const { status } = this.props;
+
+    setTimeout(() => {
+      //pass props to refetch call
+      status.post.refetch(this.props);
+    }, 2000);
+  }
+
+  render() {
+    ...
+}
+```
+
 ## Cache invalidation
 
 After some destructive call (ie. creation of a new post), you often need to
