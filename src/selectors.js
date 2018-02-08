@@ -33,14 +33,19 @@ export function getRelationship(state, entity, relationshipName) {
     return null;
   }
 
-  const { data } = entity.relationships[relationshipName];
+  if (!entity.relationships[relationshipName]) {
+    return null;
+  }
 
+  const { data } = entity.relationships[relationshipName];
+    
   if (Array.isArray(data)) {
     return data.map(handle => getEntity(state, handle));
   }
 
   return getEntity(state, data);
 }
+
 
 export function getRequestResult(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
