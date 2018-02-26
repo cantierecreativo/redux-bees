@@ -38,7 +38,8 @@ export default function buildMiddleware() {
         payload: result,
         meta: { ...meta, type: 'error' },
       });
-      return Promise.reject(result);
+      return Promise.reject(result)
+      .catch(error => console.log(error));
     });
   };
 }
