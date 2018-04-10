@@ -67,8 +67,6 @@ export default function buildApi(endpoints, config = {}) {
         configureOptions(augmentedOptions)
       );
 
-      pendingPromises[promiseId] = req;
-
       const promise = req
         .then(afterResolve)
         .then((result) => {
@@ -83,6 +81,7 @@ export default function buildApi(endpoints, config = {}) {
 
       promise.actionName = key;
       promise.params = args;
+      pendingPromises[promiseId] = promise;
 
       return promise;
     };
