@@ -1,6 +1,6 @@
 {
   "name": "redux-bees",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A nice, declarative way of managing JSON API calls with Redux",
   "main": "lib/index.js",
   "scripts": {
