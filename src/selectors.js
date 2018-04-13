@@ -2,11 +2,11 @@ function getRawRequest(state, apiCall, args) {
   const { actionName } = apiCall;
 
   if (!state.bees.requests) {
-    return null;
+    return undefined;
   }
 
   if (!state.bees.requests[actionName]) {
-    return null;
+    return undefined;
   }
 
   return state.bees.requests[actionName][JSON.stringify(args)];
@@ -14,15 +14,15 @@ function getRawRequest(state, apiCall, args) {
 
 export function getEntity(state, handle) {
   if (!handle) {
-    return null;
+    return undefined;
   }
 
   if (!state.bees.entities) {
-    return null;
+    return undefined;
   }
 
   if (!state.bees.entities[handle.type]) {
-    return null;
+    return undefined;
   }
 
   return state.bees.entities[handle.type][handle.id];
@@ -30,17 +30,20 @@ export function getEntity(state, handle) {
 
 export function getRelationship(state, entity, relationshipName) {
   if (!entity) {
-    return null;
+    return undefined;
   }
 
   if (!entity.relationships[relationshipName]) {
-    return null;
+    return undefined;
   }
 
   const { data } = entity.relationships[relationshipName];
     
   if (Array.isArray(data)) {
-    return data.map(handle => getEntity(state, handle));
+    return data.reduce((acc, handle) => {
+      const el = getEntity(state, handle);
+      return el ? acc.concat([el]) : acc;
+    }, []);
   }
 
   return getEntity(state, data);
@@ -51,7 +54,7 @@ export function getRequestResult(state, apiCall, args) {
   const request = getRawRequest(state, apiCall, args);
 
   if (!request || !request.response) {
-    return null;
+    return undefined;
   }
 
   if (Array.isArray(request.response)) {
