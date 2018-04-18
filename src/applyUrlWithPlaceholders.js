@@ -10,7 +10,7 @@ export default function applyUrlWithPlaceholders(url, placeholders) {
       return acc.replace(token, encodeURIComponent(placeholders[key]))
     }
 
-    if (placeholders[key]) {
+    if (placeholders[key] !== null) {
       query[key] = placeholders[key];
     }
 
