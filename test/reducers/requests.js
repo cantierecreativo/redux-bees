@@ -88,6 +88,47 @@ test('requests reducer', (c) => {
     t.end();
   });
 
+  c.test('with resource that has id=0', (t) => {
+    const meta = { api: true, type: 'response', name: 'getPost', params: ['0'] };
+    const action = {
+      type: 'api/getPost/request',
+      meta,
+      payload: {
+        status: 200,
+        headers: {},
+        body: { data: [{...resource, id: 0}] }
+      },
+    };
+
+    const initialState = {
+      getPost: {
+        '["0"]': {
+          error: null,
+          isLoading: true,
+        },
+      },
+    };
+
+    const state = requestsReducer(initialState, action);
+
+    t.deepEqual(
+      state,
+      {
+        getPost: {
+          '["0"]': {
+            error: null,
+            isLoading: false,
+            response: [ { id: 0, type: 'post' } ],
+            status: 200,
+            headers: {},
+          },
+        },
+      }
+    );
+
+    t.end();
+  });
+
   c.test('with actions of type error', (t) => {
     const meta = { api: true, type: 'error', name: 'getPost', params: ['12'] };
 

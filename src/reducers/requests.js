@@ -71,7 +71,7 @@ export default function reducer(state = initialState, action) {
 
       if (Array.isArray(data)) {
         normalizedData = data.map(record => ({ id: record.id, type: record.type }));
-      } else if (data && data.id) {
+      } else if (data && data.id != null) {
         normalizedData = { id: data.id, type: data.type };
       } else {
         normalizedData = null;
