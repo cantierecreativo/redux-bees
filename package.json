@@ -13,7 +13,9 @@
   "files": [
     "lib"
   ],
-  "author": "Stefano Verna <s.verna@cantierecreativo.net>",
+  "contributors": [
+    "Stefano Verna <s.verna@cantierecreativo.net>"
+  ],
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.24.1",
