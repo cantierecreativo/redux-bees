@@ -1,3 +1,8 @@
+[![Maintainers Wanted](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/maintainers-wanted-red.svg)](https://github.com/cantierecreativo/redux-bees)
+
+# Maintainers Wanted
+
+
 ![redux-bees](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/logo.png)
 
 A nice, declarative way of managing [JSON API](http://jsonapi.org/) calls with Redux.
@@ -16,7 +21,7 @@ Or if you use Yarn:
 yarn add redux-bees
 ```
 
-This library makes use of the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make AJAX requests, 
+This library makes use of the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make AJAX requests,
 so make sure to add a polyfill if your execution environment is not equipped with it.
 
 # Usage
@@ -590,9 +595,9 @@ export default class App extends React.Component {
 ```
 
 Calling `invalidateRequests(api.getPosts)` will invalidate **every previous API
-call** made to the `api.getPosts` endpoint. 
+call** made to the `api.getPosts` endpoint.
 
-To invalidate only a subset of the previously API calls made, you can pass a function 
+To invalidate only a subset of the previously API calls made, you can pass a function
 as second argument that will act as a filter:
 
 ```js
@@ -602,7 +607,7 @@ dispatch(invalidateRequests(api.getPost, (params) => params.id === 2));
 
 ## Server-side data loading
 
-We seek to be composable with any approach, and not prescribe or lean toward any specific routing solution. 
+We seek to be composable with any approach, and not prescribe or lean toward any specific routing solution.
 
 Components wrapped in a `@query` HOC expose a static function called `loadData` which accepts a redux `dispatch` function as first argument. It returns a Promise that resolves once data is loaded and saved to your Redux store.
 
