@@ -1,4 +1,4 @@
-[![Maintainers Wanted](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/maintainers-wanted-red.svg)](https://github.com/cantierecreativo/redux-bees)
+[![Maintainers Wanted](https://github.com/cantierecreativo/redux-bees/blob/master/maintainers-wanted-red.svg)](https://github.com/cantierecreativo/redux-bees)
 
 # Maintainers Wanted
 
