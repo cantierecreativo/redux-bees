@@ -2,6 +2,7 @@
 
 # Maintainers Wanted
 
+We are looking for maintainers for Redux Bees. If you are interested write us on this issue [Maintainers Wanted](https://github.com/cantierecreativo/redux-bees/issues/74).
 
 ![redux-bees](https://raw.githubusercontent.com/cantierecreativo/redux-bees/master/logo.png)
 
