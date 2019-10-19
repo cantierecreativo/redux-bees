@@ -17,6 +17,9 @@
     "Stefano Verna <s.verna@cantierecreativo.net>"
   ],
   "license": "ISC",
+  "peerDependencies": {
+    "redux": "^3.0.0 || ^4.0.0-0"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.0.0",
