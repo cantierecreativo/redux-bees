@@ -39,6 +39,7 @@ export default function buildMiddleware() {
         meta: { ...meta, type: 'error' },
       });
       return Promise.reject(result);
-    });
+    })
+    .catch(error => console.log(error));
   };
 }
