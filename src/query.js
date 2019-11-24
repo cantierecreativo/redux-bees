@@ -22,7 +22,9 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
       }
 
       componentDidMount() {
-        this.fetch();
+        if (!this.props.request.hasStarted) {
+          this.fetch();
+        }
       }
 
       componentWillReceiveProps(nextProps) {
