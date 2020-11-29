@@ -9,14 +9,16 @@
  */
 
 export default function request(baseUrl, path, options) {
-  const url = (typeof baseUrl === 'function' ? baseUrl() : baseUrl) + path
+  const url = (typeof baseUrl === 'function' ? baseUrl() : baseUrl) + path;
   return fetch(url, options)
     .then((res) => {
       const headers = {};
       res.headers.forEach((value, name) => headers[name] = value);
 
       const response = {
+        track: options.track,
         status: res.status,
+        url: path,
         headers,
       };
 
