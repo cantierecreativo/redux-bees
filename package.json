@@ -1,13 +1,13 @@
 {
-  "name": "redux-bees",
-  "version": "0.1.11",
-  "description": "A nice, declarative way of managing JSON API calls with Redux",
+  "name": "@applyboard/redux-bees",
+  "version": "0.1.12",
+  "description": "A not-so-nice, crappy way of managing JSON API calls with Redux",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "rimraf lib && mkdir lib && npm run lib",
-    "start": "webpack-dev-server --open",
-    "start-server": "babel-node example/server-side.js",
     "lib": "babel src --out-dir lib",
+    "prepublish": "rimraf lib && mkdir lib && npm run lib",
+    "start-server": "babel-node example/server-side.js",
+    "start": "webpack-dev-server --open",
     "test": "babel-node test/index.js | tap-dot"
   },
   "files": [

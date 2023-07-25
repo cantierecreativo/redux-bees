@@ -1,0 +1,11 @@
+.babelrc               @ApplyBoard/uie-core
+.github/               @ApplyBoard/uie-core
+.gitignore             @ApplyBoard/uie-core
+example/               @ApplyBoard/uie-core
+index.html             @ApplyBoard/uie-core
+package.json           @ApplyBoard/uie-core
+README.md              @ApplyBoard/uie-core
+src/                   @ApplyBoard/uie-core
+test/                  @ApplyBoard/uie-core
+webpack.config.js      @ApplyBoard/uie-core
+yarn.lock              @ApplyBoard/uie-core
